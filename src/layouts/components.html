@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Shit Done Kit</title>
+
+    <link rel="stylesheet" href="{{root}}assets/vendors/bootstrap3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{root}}assets/css/app.css">
+
+    <link rel="stylesheet" href="{{root}}assets/vendors/css/demo.css">
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Grand+Hotel|Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <link href="{{root}}assets/vendors/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+    <style>
+      pre.prettyprint{
+        background-color: #eee;
+        border: 0px;
+        margin-bottom: 0;
+        margin-top: 20px;
+        padding: 20px;
+        text-align: left;
+      }
+      .atv, .str{
+        color: #05AE0E;
+      }
+      .tag, .pln, .kwd{
+        color: #3472F7;
+      }
+      .atn{
+        color: #2C93FF;
+      }
+      .pln{
+        color: #333;
+      }
+      .com{
+        color: #999;
+      }
+      .space-top{
+        margin-top: 50px;
+      }
+      .btn-primary .caret{
+        border-top-color: #3472F7;
+        color: #3472F7;
+      }
+      .area-line{
+        border: 1px solid #999;
+        border-left: 0;
+        border-right: 0;
+        color: #666;
+        display: block;
+        margin-top: 20px;
+        padding: 8px 0;
+        text-align: center;
+      }
+      .area-line a{
+        color: #666;
+      }
+      .container-fluid{
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+      .table-shopping .td-name{
+        min-width: 130px;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    {{> body}}
+
+    <!--  jQuery and Bootstrap core files    -->
+    <script src="{{root}}assets/vendors/js/jquery.js"></script>
+    <script src="{{root}}assets/vendors/js/jquery-ui.custom.min.js"></script>
+    <script src="{{root}}assets/vendors/bootstrap3/js/bootstrap.min.js"></script>
+
+    <!--  Plugins -->
+    <script src="{{root}}assets/vendors/js/gsdk-checkbox.js"></script>
+    <script src="{{root}}assets/vendors/js/gsdk-morphing.js"></script>
+    <script src="{{root}}assets/vendors/js/gsdk-radio.js"></script>
+    <script src="{{root}}assets/vendors/js/gsdk-bootstrapswitch.js"></script>
+    <script src="{{root}}assets/vendors/js/bootstrap-select.js"></script>
+    <script src="{{root}}assets/vendors/js/bootstrap-datepicker.js"></script>
+    <script src="{{root}}assets/vendors/js/chartist.min.js"></script>
+    <script src="{{root}}assets/vendors/js/jquery.tagsinput.js"></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <!--  Get Shit Done Kit PRO Core javascript 	 -->
+    <script src="{{root}}assets/vendors/js/get-shit-done.js"></script>
+
+    <script src="{{root}}assets/js/app.js"></script>
+
+    <script src="{{root}}assets/vendors/js/demo.js"></script>
+
+    <script>
+        var transparent = true;
+        var header_height;
+        var fixed_section;
+        var floating = false;
+
+        $().ready(function(){
+            suggestions_distance = $("#suggestions").offset();
+            header_height = $('.parallax').outerHeight() + 20;
+            pay_height = $('.fixed-section').outerHeight();
+            fixed_section = $('.fixed-section');
+
+            initMorphingButtons();
+            initDemoChartist();
+            initGoogleMaps();
+
+
+            if($(document).width() > 768){
+                activateScrollCheck();
+            }
+
+        });
+
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [ 75, 300 ],
+        });
+        $( "#slider-default" ).slider({
+            value: 70,
+            orientation: "horizontal",
+            range: "min",
+            animate: true
+        });
+
+        $('.radio').on('toggle', function() { });
+
+        function activateScrollCheck(){
+            $(window).on('scroll',function(){
+                checkScrollForPresentationNavbar();
+            });
+        }
+
+        var checkScrollForPresentationNavbar = debounce(function() {
+            if($(this).scrollTop() > 470 ) {
+                if(transparent) {
+                    transparent = false;
+                    $('nav[role="navigation"]').removeClass('navbar-transparent').addClass('navbar-small');
+                    $('#issueButton').addClass('btn-info').removeClass('btn-neutral');
+
+                }
+            } else {
+                if( !transparent ) {
+                    transparent = true;
+                    $('nav[role="navigation"]').addClass('navbar-transparent').removeClass('navbar-small');
+                    $('#issueButton').addClass('btn-neutral').removeClass('btn-info');
+                }
+            }
+
+            if($(this).scrollTop() > header_height ) {
+                if(!floating) {
+                    floating = true;
+                    fixed_section.addClass('float');
+                }
+            } else {
+                if( floating ) {
+                    floating = false;
+                    fixed_section.removeClass('float');
+                }
+            }
+        }, 4);
+    </script>
+
+    <!-- If you have retina @2x images on your server which can be sent to iPhone/iPad/MacRetina, please uncomment the next line, otherwise you can delete it -->
+    <!-- <script src="assets/js/retina.min.js"></script> -->
+
+  </body>
+</html>
